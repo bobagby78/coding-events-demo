@@ -46,8 +46,8 @@ public class Event {
         this.description = description;
         this.contactEmail = contactEmail;
         this.location= location;
-        this.regRequired= regRequired;
         this.numAttendees= numAttendees;
+        this.regRequired= regRequired;
         this.id = nextId;
         nextId++;
     }
