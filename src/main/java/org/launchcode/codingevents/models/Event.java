@@ -2,6 +2,7 @@ package org.launchcode.codingevents.models;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -24,12 +25,55 @@ public class Event {
     @Email(message = "Invalid email. Try again")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    //TODO add eventLocation field and add it to the constructor- validation- @NotBlank
+
+    @NotBlank
+    @NotNull
+    private String location;
+
+    //TODO add a checkbox for whether an even requires registration. Should be set as TRUE
+     private boolean regRequired;
+
+    //TODO add a field for number of attendees. Must be over zero
+    @Size(min = 1)
+    private Integer numAttendees;
+
+    //TODO add a field of my own choice. Make some sort of validation that hasn't been used but would be approp.
+
+
+    public Event(String name, String description, String contactEmail, String location, Boolean regRequired, Integer numAttendees) {
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location= location;
+        this.regRequired= regRequired;
+        this.numAttendees= numAttendees;
         this.id = nextId;
         nextId++;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isRegRequired() {
+        return regRequired;
+    }
+
+    public void setRegRequired(boolean regRequired) {
+        this.regRequired = regRequired;
+    }
+
+    public Integer getNumAttendees() {
+        return numAttendees;
+    }
+
+    public void setNumAttendees(Integer numAttendees) {
+        this.numAttendees = numAttendees;
     }
 
     public Event(){}
