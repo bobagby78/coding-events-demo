@@ -43,10 +43,22 @@
         <p class="error" th:errors="${event.numAttendees}"></p>
     </div>
 
-<!--  TODO -Change next to a checkbox  -->
     <div class="form-group">
         <label>Registration Required
-            <input th:field="${event.regRequired}" class="form-control">
+            <input type="checkbox" name="regRequired" th:value="${event.regRequired}" class="form-control">
+        </label>
+        <p class="error" th:errors="${event.regRequired}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>Type
+            <select th:field="${event.type}">
+                <option th:each="type: ${types}"
+                        th:value="${type}"
+                        th:text="${type.displayName}">
+
+                </option>
+            </select>
         </label>
         <p class="error" th:errors="${event.regRequired}"></p>
     </div>

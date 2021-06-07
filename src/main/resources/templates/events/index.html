@@ -15,6 +15,7 @@
             <th>Location</th>
             <th>Guests</th>
             <th>Registration Required?</th>
+            <th>Event Type</th>
         </tr>
     </thead>
     <tr th:each="event : ${events}">
@@ -25,6 +26,7 @@
         <td th:text="${event.location}">Event Loc goes here</td>
         <td th:text="${event.numAttendees}">max num attendees goes here</td>
         <td th:text="${event.regRequired}">reg required goes here</td>
+        <td th:text="${event.type.displayName}">event type here</td>
     </tr>
 </table>
 

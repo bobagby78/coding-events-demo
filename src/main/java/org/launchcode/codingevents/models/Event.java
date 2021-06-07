@@ -1,9 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -25,31 +22,44 @@ public class Event {
     @Email(message = "Invalid email. Try again")
     private String contactEmail;
 
-    //TODO add eventLocation field and add it to the constructor- validation- @NotBlank
 
-    @NotBlank
-    @NotNull
+    @NotBlank(message= "Please enter a location")
+    @NotNull(message= "Please enter a location")
     private String location;
 
-    //TODO add a checkbox for whether an even requires registration. Should be set as TRUE
-     private boolean regRequired;
+    private boolean regRequired;
 
-    //TODO add a field for number of attendees. Must be over zero
-    @Size(min = 1)
+    @Min(1)
     private Integer numAttendees;
+
+    private EventType type;
 
     //TODO add a field of my own choice. Make some sort of validation that hasn't been used but would be approp.
 
 
-    public Event(String name, String description, String contactEmail, String location, Boolean regRequired, Integer numAttendees) {
+    public Event(String name, String description, String contactEmail, String location, Boolean regRequired, Integer numAttendees, EventType type) {
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
         this.location= location;
         this.numAttendees= numAttendees;
         this.regRequired= regRequired;
+        this.type= type;
+
+    }
+    public Event(){
         this.id = nextId;
         nextId++;
+    }
+
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public String getLocation() {
@@ -76,7 +86,7 @@ public class Event {
         this.numAttendees = numAttendees;
     }
 
-    public Event(){}
+
 
     public String getContactEmail() {
         return contactEmail;
