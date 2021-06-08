@@ -23,10 +23,11 @@ public class Event {
     private String contactEmail;
 
 
-    @NotBlank(message= "Please enter a location")
-    @NotNull(message= "Please enter a location")
+    @NotBlank(message= "Please enter a location") //notBlank extends notNull. notBlank is the choice for String
+//    @NotNull(message= "Please enter a location")
     private String location;
 
+    @AssertTrue (message= "Registration is required at this time.")
     private boolean regRequired;
 
     @Min(1)
