@@ -6,6 +6,9 @@ import org.springframework.context.annotation.EnableMBeanExport;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @Entity
 public class EventCategory {
@@ -13,6 +16,9 @@ public class EventCategory {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotBlank(message = "This field is required")
+    @Size(min = 3, max = 50, message = "Category name must be between 3 and 50 characters")
     private String name;
 
     EventCategory(int id, String name){
@@ -21,7 +27,7 @@ public class EventCategory {
 
     }
 
-    EventCategory(){};
+    public EventCategory(){};
 
     public int getId() {
         return id;
