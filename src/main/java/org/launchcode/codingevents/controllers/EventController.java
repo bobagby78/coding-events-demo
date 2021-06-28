@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventCategory;
 import org.launchcode.codingevents.models.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * Created by Chris Bay
@@ -26,9 +28,20 @@ public class EventController {
     private EventCategoryRepository eventCategoryRepository;
 
     @GetMapping
-    public String displayAllEvents(Model model) {
-        model.addAttribute("title", "All Events");
-        model.addAttribute("events", eventRepository.findAll());
+    public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
+        if (categoryId == null){
+            model.addAttribute("title", "All Events");
+            model.addAttribute("events", eventRepository.findAll());
+        }else{
+            Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
+            if (result.isEmpty()){ //look for eventId in mySQL, if it doesn't exist...
+                model.addAttribute("title", "Invalid Category ID " + categoryId); // tell user it's not a thing
+            }else{
+                EventCategory category = result.get(); //???
+                model.addAttribute("title", "Events in Category: " + category.getName());
+                model.addAttribute("events", category.getEvents());
+            }
+        }
         return "events/index";
     }
 
