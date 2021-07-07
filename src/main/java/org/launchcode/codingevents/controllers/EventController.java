@@ -108,6 +108,7 @@ public class EventController {
         return "events/detail";
     }
     //responds  to /events/add-tag?event=13 ( or =whatever the tag id is that's associated
+
     @GetMapping("add-tag")
     public String displayAddTagForm(@RequestParam Integer eventId, Model model){
         Optional<Event> result = eventRepository.findById(eventId);
